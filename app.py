@@ -30,7 +30,7 @@ def predictMovie():
             df = pd.DataFrame(res_zip, columns =['Movies', 'Id']) 
             data = df.to_json(orient='records')
             re={"data":data,"error":False,"message":"successful"}
-            print("RESPONSe",df.head(2))
+            print("RESPONSe",re)
             return jsonify(re)
         except:
              print("Wrong")
@@ -40,8 +40,8 @@ def recommend(movie):
         try:
             recommended_movies = []
             recommended_movies_id=[]
-            text_new_df = pickle.load(open('pickelFiles/movie_list.pkl','rb'))
-            similarity = pickle.load(open('pickelFiles/similarity.pkl','rb'))
+            text_new_df = pickle.load(open('movie_list.pkl','rb'))
+            similarity = pickle.load(open('similarity.pkl','rb'))
             print("Hello 1")
             index = text_new_df[text_new_df['title'] == movie].index[0]
             distances = sorted(list(enumerate(similarity[index])),reverse=True,key = lambda x: x[1])
@@ -56,7 +56,7 @@ def recommend(movie):
 @app.route("/getMoviesList", methods=['GET'])
 @cross_origin()
 def getMoviesList():
-    movies = pickle.load(open('pickelFiles/movie_list.pkl','rb'))
+    movies = pickle.load(open('movie_list.pkl','rb'))
     lists = list(movies['title'])
     df = pd.DataFrame(lists)
     data = df.to_json(orient='records')
