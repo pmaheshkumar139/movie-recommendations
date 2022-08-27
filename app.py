@@ -61,7 +61,7 @@ def getMoviesList():
     df = pd.DataFrame(lists)
     data = df.to_json(orient='records')
     re={"data":lists,"error":False,"message":"successful"}
-    print("RESPONSe",df.head(2))
+    print("RESPONSE",df.head(2))
     return jsonify(re)
 port = int(os.getenv("PORT",5001))
 if __name__ == "__main__":
